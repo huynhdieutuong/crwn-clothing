@@ -4,11 +4,27 @@ import Header from './components/Header';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
+import { auth } from './firebase/utils';
+import { useEffect, useState, useRef } from 'react';
 
-function App() {
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  let unsubscribeFromAuth = useRef(null);
+
+  useEffect(() => {
+    unsubscribeFromAuth.current = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      console.log(user);
+    });
+
+    return () => {
+      unsubscribeFromAuth.current();
+    };
+  }, [currentUser]);
+
   return (
     <Router>
-      <Header />
+      <Header currentUser={currentUser} />
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route exact path='/shop' component={ShopPage} />
@@ -16,6 +32,6 @@ function App() {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;
