@@ -1,14 +1,20 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import './App.scss';
 import Header from './components/Header';
+import { auth, createUserProfileDocument } from './firebase/utils';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
-import { auth, createUserProfileDocument } from './firebase/utils';
-import { useEffect, useState, useRef } from 'react';
+import { setCurrentUser } from './redux/user/actions';
 
-const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+const App = ({ setCurrentUser, currentUser }) => {
   let unsubscribeFromAuth = useRef(null);
 
   useEffect(() => {
@@ -29,18 +35,31 @@ const App = () => {
     return () => {
       unsubscribeFromAuth.current();
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
     <Router>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route exact path='/shop' component={ShopPage} />
-        <Route exact path='/auth' component={AuthPage} />
+        <Route
+          exact
+          path='/auth'
+          render={() => (currentUser ? <Redirect to='/' /> : <AuthPage />)}
+        />
       </Switch>
     </Router>
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
