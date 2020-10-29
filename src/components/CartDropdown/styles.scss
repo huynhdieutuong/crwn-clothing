@@ -1,0 +1,45 @@
+.cart-dropdown {
+  width: 250px;
+  height: 350px;
+  border: 2px solid black;
+  background-color: white;
+  position: absolute;
+  z-index: 10;
+  right: 20px;
+  top: 70px;
+  padding: 20px;
+
+  .cart-items {
+    width: 100%;
+    height: 82%;
+    margin-bottom: 10px;
+    overflow-y: auto;
+
+    /* Let's get this party started */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: rgba(19, 18, 18, 0.8);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+    &::-webkit-scrollbar-thumb:window-inactive {
+      background: rgba(19, 18, 18, 0.4);
+    }
+  }
+
+  .custom-button {
+    width: 100%;
+  }
+}

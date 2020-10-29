@@ -1,6 +1,17 @@
 .collection-item {
   width: 22%;
   height: 350px;
+  position: relative;
+
+  &:hover {
+    .image {
+      opacity: 0.8;
+    }
+
+    .add-to-cart {
+      visibility: visible;
+    }
+  }
 
   .image {
     height: 95%;
@@ -16,5 +27,13 @@
     .name {
       flex-grow: 1;
     }
+  }
+
+  .add-to-cart {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    visibility: hidden;
   }
 }
