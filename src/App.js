@@ -13,6 +13,8 @@ import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import { setCurrentUser } from './redux/user/actions';
+import { selectCurrentUser } from './redux/user/selectors';
+import { createStructuredSelector } from 'reselect';
 
 const App = ({ setCurrentUser, currentUser }) => {
   let unsubscribeFromAuth = useRef(null);
@@ -54,8 +56,8 @@ const App = ({ setCurrentUser, currentUser }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
