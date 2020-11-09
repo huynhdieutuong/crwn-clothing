@@ -45,5 +45,13 @@
         cursor: pointer;
       }
     }
+
+    td.total {
+      width: 100%;
+      justify-content: flex-end;
+      padding-right: 0;
+      font-size: 28px;
+      cursor: auto;
+    }
   }
 }

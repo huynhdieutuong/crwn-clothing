@@ -2,10 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './styles.scss';
 import { createStructuredSelector } from 'reselect';
-import { selectCartItems } from '../../redux/cart/selectors';
-import { changeQuantity } from '../../redux/cart/actions';
+import {
+  selectCartItems,
+  selectCartTotalPrice,
+} from '../../redux/cart/selectors';
+import { changeQuantity, removeItemCart } from '../../redux/cart/actions';
 
-const CheckoutPage = ({ cartItems, changeQuantity }) => {
+const CheckoutPage = ({ cartItems, changeQuantity, total, removeItemCart }) => {
   return (
     <div className='checkout-page'>
       <table>
@@ -42,10 +45,18 @@ const CheckoutPage = ({ cartItems, changeQuantity }) => {
               </td>
               <td>{item.price}</td>
               <td>
-                <div className='remove-button'>&#10005;</div>
+                <div
+                  className='remove-button'
+                  onClick={() => removeItemCart(item)}
+                >
+                  &#10005;
+                </div>
               </td>
             </tr>
           ))}
+          <tr>
+            <td className='total'>TOTAL: ${total}</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -54,9 +65,12 @@ const CheckoutPage = ({ cartItems, changeQuantity }) => {
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
+  total: selectCartTotalPrice,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeQuantity: (item, formula) => dispatch(changeQuantity(item, formula)),
+  removeItemCart: (item) => dispatch(removeItemCart(item)),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);

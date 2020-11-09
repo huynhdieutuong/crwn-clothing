@@ -1,5 +1,3 @@
-import { selectCartItems } from './selectors';
-
 export const addItemToCart = (stateCartItems, itemAdd) => {
   let cartItems = [...stateCartItems];
   const index = cartItems.findIndex((item) => item.id === itemAdd.id);

@@ -1,4 +1,9 @@
-import { TOGGLE_CART, ADD_TO_CART, CHANGE_QUANTITY } from './styles';
+import {
+  TOGGLE_CART,
+  ADD_TO_CART,
+  CHANGE_QUANTITY,
+  REMOVE_ITEM_CART,
+} from './styles';
 import { addItemToCart, changeQuantity } from './utils';
 
 const initialState = {
@@ -23,6 +28,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: changeQuantity(state.cartItems, payload),
+      };
+    case REMOVE_ITEM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((item) => item.id !== payload.id),
       };
     default:
       return state;
