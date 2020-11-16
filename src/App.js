@@ -46,13 +46,12 @@ const App = ({ setCurrentUser, currentUser }) => {
       <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route exact path='/shop' component={ShopPage} />
+        <Route path='/shop' component={ShopPage} />
         <Route
-          exact
           path='/auth'
           render={() => (currentUser ? <Redirect to='/' /> : <AuthPage />)}
         />
-        <Route exact path='/checkout' component={CheckoutPage} />
+        <Route path='/checkout' component={CheckoutPage} />
       </Switch>
     </Router>
   );
