@@ -47,11 +47,23 @@
     }
 
     td.total {
-      width: 100%;
+      width: 80%;
+      justify-content: flex-end;
+      font-size: 28px;
+    }
+
+    td.pay-button {
+      width: 20%;
       justify-content: flex-end;
       padding-right: 0;
-      font-size: 28px;
       cursor: auto;
     }
+  }
+
+  .test-warning {
+    text-align: center;
+    color: red;
+    font-size: 28px;
+    padding: 20px 0;
   }
 }
