@@ -31,6 +31,7 @@ const CartDropdown = ({ cartItems, history, toggleCart }) => {
         ))}
       </div>
       <CustomButton
+        className='custom-button'
         onClick={() => {
           toggleCart();
           history.push('/checkout');

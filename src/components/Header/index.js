@@ -1,7 +1,6 @@
 import React from 'react';
-import './styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { auth } from '../../firebase/utils';
 import { connect } from 'react-redux';
 import CartIcon from '../CartIcon';
@@ -9,6 +8,12 @@ import CartDropdown from '../CartDropdown';
 import { selectCurrentUser } from '../../redux/user/selectors';
 import { selectHiddenCart } from '../../redux/cart/selectors';
 import { createStructuredSelector } from 'reselect';
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionLink,
+  OptionsContainer,
+} from './styles';
 
 const Header = ({ currentUser, hiddenCart, history }) => {
   const handleSignOut = async () => {
@@ -17,30 +22,24 @@ const Header = ({ currentUser, hiddenCart, history }) => {
   };
 
   return (
-    <div className='header'>
-      <Link to='/' className='logo-container'>
+    <HeaderContainer>
+      <LogoContainer to='/'>
         <Logo className='logo' />
-      </Link>
-      <div className='options'>
-        <Link className='option' to='/shop'>
-          SHOP
-        </Link>
-        <Link className='option' to='/contact'>
-          CONTACT
-        </Link>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to='/shop'>SHOP</OptionLink>
+        <OptionLink to='/contact'>CONTACT</OptionLink>
         {currentUser ? (
-          <Link to='#' className='option' onClick={handleSignOut}>
+          <OptionLink to='#' onClick={handleSignOut}>
             SIGNOUT
-          </Link>
+          </OptionLink>
         ) : (
-          <Link className='option' to='/auth'>
-            SIGNIN
-          </Link>
+          <OptionLink to='/auth'>SIGNIN</OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {!hiddenCart && <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 
